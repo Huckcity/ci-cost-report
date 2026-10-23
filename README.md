@@ -4,6 +4,8 @@ A GitHub Action that prices every workflow run in your repository at GitHub's pe
 
 No dashboard, no SaaS account, no dependencies. It reads the same Actions API your token already has, and writes Markdown to the job summary, a weekly issue, or a PR comment.
 
+![Example weekly issue: spend by workflow and runner, and two savings with numbers attached](docs/example.jpg)
+
 ## Usage
 
 Weekly report as a self-updating issue:
