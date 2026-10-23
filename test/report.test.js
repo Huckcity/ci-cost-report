@@ -57,7 +57,7 @@ test('analyse aggregates, finds superseded and scheduled-unchanged waste', () =>
   assert.equal(a.topJobs.find((j) => j.name === 'CI / test').count, 2, 'matrix variants collapse into one job');
   const md = renderMarkdown(a, analyse([runs[0]]), { repo: 'acme/app', days: 30, isPublic: true, budget: 1, concurrency: new Map([[1, false]]) });
   assert.ok(md.startsWith(MARKER));
-  assert.match(md, /superseded runs/);
+  assert.match(md, /superseded run\b/);
   assert.match(md, /no `cancel-in-progress`/);
   assert.match(md, /scheduled runs/);
   assert.match(md, /Over budget/);
