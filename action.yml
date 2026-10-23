@@ -1,0 +1,57 @@
+name: 'CI Cost Report'
+description: 'Price every workflow run at GitHub per-minute rates, show where the money goes and flag superseded, failed and rounding waste.'
+author: 'Adam Gibbons'
+branding:
+  icon: 'dollar-sign'
+  color: 'green'
+inputs:
+  token:
+    description: 'GitHub token. Needs actions:read (contents:read to check workflows for cancel-in-progress; issues:write or pull-requests:write to post).'
+    default: ${{ github.token }}
+  days:
+    description: 'Length of the reporting window in days (1–90).'
+    default: '30'
+  compare-previous:
+    description: 'Also analyse the window before this one and show the change.'
+    default: 'true'
+  repos:
+    description: 'Comma-separated owner/repo list to report on instead of the current repository (the token must read their Actions).'
+    default: ''
+  max-runs:
+    description: 'Most runs to analyse per repository and window (10–1000). Each run costs one API call.'
+    default: '600'
+  rates:
+    description: 'JSON object overriding USD-per-minute rates, keyed like linux-2, windows-4, macos-4, arm-2 (see README for defaults).'
+    default: ''
+  self-hosted-rate:
+    description: 'USD per minute to price self-hosted runner jobs at (default 0).'
+    default: '0'
+  budget-usd:
+    description: 'If set, the report shows a budget line and the step fails when spend exceeds it (see fail-over-budget).'
+    default: ''
+  fail-over-budget:
+    description: 'Fail the step when budget-usd is exceeded.'
+    default: 'true'
+  issue:
+    description: 'Open (and keep updating) one issue in the current repository with the report. Good for a weekly schedule.'
+    default: 'false'
+  issue-title:
+    description: 'Title of that issue.'
+    default: 'CI cost report'
+  comment-on-pr:
+    description: 'On pull_request events, post (and keep updated) a single comment with the report.'
+    default: 'true'
+outputs:
+  total-usd:
+    description: 'Estimated spend in the window, USD.'
+  total-minutes:
+    description: 'Billed minutes in the window.'
+  previous-usd:
+    description: 'Estimated spend in the previous window (empty if compare-previous is false).'
+  superseded-usd:
+    description: 'Estimated spend on runs that a newer push superseded.'
+  report-path:
+    description: 'Path to the Markdown report file.'
+runs:
+  using: 'node24'
+  main: 'src/main.js'
