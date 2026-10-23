@@ -99,6 +99,8 @@ For every completed run in the window the action lists its jobs (all attempts), 
 
 ## Related
 
+- [Skip Unchanged](https://github.com/marketplace/actions/skip-unchanged): the fix for "scheduled runs on unchanged commits"; skips the nightly when the commit already has a successful run.
+
 [CI Step Timing Report](https://github.com/marketplace/actions/ci-step-timing-report) flags the jobs and steps that got slower on a pull request. [ci2actions.dev](https://ci2actions.dev) converts Jenkins, GitLab CI, Azure Pipelines, CircleCI, Bitbucket and Travis configs to GitHub Actions.
 
 ## Support
